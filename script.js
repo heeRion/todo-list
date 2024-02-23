@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", function() {
   
     let tasks = [];
   
-    
     tasks = [
       { text: "일정을 추가하십시오", date: "2024-03-07", completed: false }
     ];
@@ -35,13 +34,12 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     }
   
-    taskList.addEventListener("click", function(event) {
-      const target = event.target;
-      if (target.classList.contains("circle")) {
-        const index = Array.from(target.closest("li").parentElement.children).indexOf(target.closest("li"));
-        tasks[index].completed = !tasks[index].completed;
-        renderTasks();
-      }
+    taskList.addEventListener("change", function(event) {
+      const checkbox = event.target;
+      const li = checkbox.closest("li");
+      const index = Array.from(li.parentElement.children).indexOf(li);
+      tasks[index].completed = checkbox.checked;
+      renderTasks();
     });
   
     function renderTasks() {
@@ -50,12 +48,10 @@ document.addEventListener("DOMContentLoaded", function() {
         const li = document.createElement("li");
         li.textContent = `${task.text} - ${task.date}`; 
   
-        const circle = document.createElement("span");
-        circle.classList.add("circle");
-        if (task.completed) {
-          circle.classList.add("completed");
-        }
-        li.insertBefore(circle, li.firstChild);
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = task.completed;
+        li.insertBefore(checkbox, li.firstChild);
   
         taskList.appendChild(li);
       });
@@ -84,12 +80,10 @@ document.addEventListener("DOMContentLoaded", function() {
         const li = document.createElement("li");
         li.textContent = `${task.text} - ${task.date}`; 
   
-        const circle = document.createElement("span");
-        circle.classList.add("circle");
-        if (task.completed) {
-          circle.classList.add("completed");
-        }
-        li.insertBefore(circle, li.firstChild);
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = task.completed;
+        li.insertBefore(checkbox, li.firstChild);
   
         taskList.appendChild(li);
       });
@@ -102,4 +96,3 @@ document.addEventListener("DOMContentLoaded", function() {
       activeButton.classList.add("active");
     }
   });
-  
