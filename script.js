@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     const taskInput = document.getElementById("taskInput");
+    const dateInput = document.getElementById("dateInput");
     const taskList = document.getElementById("taskList");
     const addButton = document.getElementById("addButton");
     const allFilter = document.getElementById("allFilter");
@@ -9,11 +10,14 @@ document.addEventListener("DOMContentLoaded", function() {
     let tasks = [];
   
     
-    tasks = ["할 일 1", "할 일 2", "할 일 3"];
+    tasks = [
+      { text: "일정을 추가하십시오", date: "2024-03-07", completed: false }
+    ];
   
     renderTasks();
   
-    addButton.addEventListener("click", addTask); 
+    addButton.addEventListener("click", addTask);
+  
     taskInput.addEventListener("keypress", function(event) {
       if (event.key === "Enter") {
         addTask();
@@ -21,10 +25,13 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   
     function addTask() {
-      if (taskInput.value.trim() !== "") {
-        tasks.push({ text: taskInput.value.trim(), completed: false });
+      const taskText = taskInput.value.trim();
+      const taskDate = dateInput.value;
+      if (taskText !== "" && taskDate !== "") {
+        tasks.push({ text: taskText, date: taskDate, completed: false });
         renderTasks();
         taskInput.value = "";
+        dateInput.value = "";
       }
     }
   
@@ -41,15 +48,15 @@ document.addEventListener("DOMContentLoaded", function() {
       taskList.innerHTML = "";
       tasks.forEach((task, index) => {
         const li = document.createElement("li");
-        li.textContent = task.text;
-        
+        li.textContent = `${task.text} - ${task.date}`; 
+  
         const circle = document.createElement("span");
         circle.classList.add("circle");
         if (task.completed) {
           circle.classList.add("completed");
         }
         li.insertBefore(circle, li.firstChild);
-        
+  
         taskList.appendChild(li);
       });
     }
@@ -75,15 +82,15 @@ document.addEventListener("DOMContentLoaded", function() {
       taskList.innerHTML = "";
       filteredTasks.forEach((task, index) => {
         const li = document.createElement("li");
-        li.textContent = task.text;
-        
+        li.textContent = `${task.text} - ${task.date}`; 
+  
         const circle = document.createElement("span");
         circle.classList.add("circle");
         if (task.completed) {
           circle.classList.add("completed");
         }
         li.insertBefore(circle, li.firstChild);
-        
+  
         taskList.appendChild(li);
       });
     }
@@ -95,3 +102,4 @@ document.addEventListener("DOMContentLoaded", function() {
       activeButton.classList.add("active");
     }
   });
+  
