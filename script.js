@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let tasks = [];
   
     tasks = [
-      { text: "일정을 추가하십시오", date: "2024-03-07", completed: false }
+      { text: "팀로그 동아리 시연회", date: "2024-03-07", completed: false }
     ];
   
     renderTasks();
